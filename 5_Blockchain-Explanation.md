@@ -1,10 +1,8 @@
 To be honest, I am a bit unclear on how the blockchain works. SO here is what I intended to implement:
 The chain starts with a dummy block. With a previous hash of "0"
-The "previous_hash" is provided by the chain. (Or should be provided by the user
-that wants to add a block, and checked against the one in the chain? I guess I'm fuzzy
-on the fundamentals of what a blockchain is and how to add blocks to it)
-I am assuming the "previous hash" is what we are using to find the previous block,
-which I implemented with a dictionary.
+The "previous hash" is used to point to the previous block, I implemented this using a dictionary
+To print the whole chain  we just traverse the whole chain as if it was a linked list
+but using hashes in a dict instead of pointers.
 
-All in all, I'm not quite confident on what your expectations are for this exercice,
-what the desired outputs are.
+I can't think of any limit cases, other than creating two blocks with the same info at the same time, which would give the same hash. I prevent this by forcing the script to
+sleep after adding a node
