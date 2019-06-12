@@ -5,11 +5,12 @@ import time
 
 class Block:
 
-    def __init__(self, timestamp, data, previous_hash):
+    def __init__(self, timestamp, data, previous_hash=None, previous=None):
         self.timestamp = str(timestamp)
         self.data = data
         self.previous_hash = previous_hash
         self.hash = self.calc_hash()
+        self.previous = previous
 
     def calc_hash(self):
         sha = hashlib.sha256()
@@ -32,13 +33,10 @@ class BlockChain:
         timestamp = datetime.datetime.utcnow()
         if self.head:
             previous_block = self.head
-            new_block = Block(timestamp, data, previous_block.hash)
+            new_block = Block(timestamp, data, previous_block.hash, previous_block)
             self.head = new_block
-            print("adding to dict {}".format(self.head.hash))
-            self.blockDict[self.head.hash] = self.head
         else:
-            self.head = Block(timestamp, data, None)
-            self.blockDict[self.head.hash] = self.head
+            self.head = Block(timestamp, data)
         time.sleep(0.5)
 
     def print_chain(self):
@@ -50,16 +48,14 @@ class BlockChain:
         current_block = self.head
         while current_block:
             yield (current_block.timestamp, current_block.data)
-            current_block = self.blockDict.get(current_block.previous_hash, None)
+            current_block = current_block.previous
 
 
 chain = BlockChain()
 
 chain.add_block("Transaction  01")
-
 chain.add_block("Transaction  02")
-
 chain.add_block("Transaction  03")
+for x in range(10):
+    chain.add_block("Transaction " + str(x + 3))
 chain.print_chain()
-print(chain.blockDict.items())
-print(chain.head.data)

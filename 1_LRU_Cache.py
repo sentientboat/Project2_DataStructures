@@ -23,13 +23,14 @@ class LRU_Queue:
         if previous_bucket is None:  # We are already dealing with the head.
             return
 
-        if next_bucket is None:
+        if next_bucket is None:  # We are dealing with the tail
             # Link previous and next.
-            previous_bucket.next = next_bucket
+            previous_bucket.next = None
             # Move updated bucket to the head
             bucket.previous = None
             bucket.next = self.head
             self.head = bucket
+            self.tail = previous_bucket
 
         else:
             # Link previous and next.
@@ -69,14 +70,17 @@ class LRU_Queue:
             self.tail = self.tail.previous
             self.tail.next = None
 
+
     def _remove_cache_dict(self, key):
         del self._cacheDict[key]  # Removes entry from cache's dict.
 
     def print_in_order(self):
         node = self.head
+        toprint = ""
         while node:
-            print (node.data)
+            toprint = str(node.data) + ' -> ' + toprint
             node = node.next
+        print(toprint)
 
 
 class LRU_Cache(object):
@@ -125,23 +129,24 @@ our_cache.print_queue()
 print("For input 3, our cache returns: {}  Should be .\'c\'".format(our_cache.get(3)))
 print("The queue should now be c,d,b,a")
 our_cache.print_queue()
-our_cache.set(5, 5)
+our_cache.set(5, '55')
 our_cache.set(6, 6)
 print("Let's see if the cache updated without increasing size:")
 our_cache.print_queue()
 print("For input 7, our cache returns: {}  Should be -1".format(our_cache.get(7)))
-#our_cache.print_queue()
 
-"""
-print(our_cache.get(1))
-our_cache.get(1)       # returns 1
-our_cache.get(2)       # returns 2
-our_cache.get(9)      # returns -1 because 9 is not present in the cache
 
-our_cache.set(1, 5)
-our_cache.set(6, 6)
-print(our_cache.get(1))
-our_cache.get(3)      # returns -1 because the cache reached it's capacity and 3 was the least recently used entry
+print("**********************__TEST FROM UDACITY__****************")
+our_cache = LRU_Cache(5)
 
+our_cache.set(1, 'a')    # cache : 1
+our_cache.set(2, 'b')   # cache : 1 -> 2
+our_cache.set(3, 'c')   # cache : 1 -> 2 -> 3
+our_cache.set(4, 'd')   # cache : 1 -> 2 -> 3 -> 4
+print(our_cache.get(1))   # cache : 2 -> 3 -> 4 -> 1
+# return 'a'
+our_cache.set(5, 'e')   # cache : 2 -> 3 -> 4 -> 1 -> 5
+our_cache.set(6, 'e')   # cache : 3 -> 4 -> 1 -> 5 -> 6
+print(our_cache.get(2))   # cache : 3 -> 4 -> 1 -> 5 -> 6
 our_cache.print_queue()
-"""
+# return -1

@@ -35,16 +35,3 @@ c = delver(entry_point, ".c")
 print("RESULTS: ")
 for i in c:
     print(i[0] + "  :  " + i[1])
-
-
-
-"""
-test = os.path.join(entry_point, 'subdir5')
-
-print(os.path.isfile(test))
-print(os.path.isdir(test))
-
-a = True
-for a in os.listdir(test):
-    print(a
-    )"""

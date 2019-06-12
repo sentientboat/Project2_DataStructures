@@ -54,6 +54,9 @@ def union(list_1, list_2):
         united.add(i)
     for i in list_2.parse():
         united.add(i)
+    output = LinkedList()
+    for i in united:
+        output.append(i)
     return(united)
 
 
@@ -64,6 +67,9 @@ def intersection(list_1, list_2):
     for i in list_2.parse():
         if i in set_1:
             intersection.add(i)
+    output = LinkedList()
+    for i in intersection:
+        output.append(i)
     return(intersection)
 
 
