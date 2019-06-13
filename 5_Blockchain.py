@@ -44,6 +44,20 @@ class BlockChain:
         for block in self._chain_traverser():
             print(block)
 
+    def check_hash(self):
+        current_block = self.head
+
+        while current_block:
+            cur_hash = current_block.previous_hash
+            prev_hash = current_block.previous.hash
+            if cur_hash == prev_hash:
+                print("Block {} has coincident hash with previous: {} ".format(
+                    current_block.data, cur_hash))
+            else:
+                print("Block {} has different hash than previous: {}, previous hash={}".format(
+                    current_block.data, cur_hash, prev_hash))
+            current_block = current_block.previous
+
     def _chain_traverser(self):
         current_block = self.head
         while current_block:
@@ -59,3 +73,4 @@ chain.add_block("Transaction  03")
 for x in range(10):
     chain.add_block("Transaction " + str(x + 3))
 chain.print_chain()
+chain.check_hash()

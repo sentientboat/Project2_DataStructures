@@ -3,5 +3,6 @@ and each node stores it's hash and the previous node's.
 Everything is pretty straightforward. O(n) complexity where n is the number of
 nodes to be appended, O(n) also for printing the list.
 
-I can't think of any limit cases, nodes can be appended ad infinitum and since
-we are only ever printing the list it's hard to find any malfunctions.
+Space complexity is O(n) where n is the number of blocks, we just create and append
+a block every time, no need to hold data outside of the blocks either, we just drop
+whatever data we produce into them.

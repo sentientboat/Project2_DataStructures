@@ -84,6 +84,7 @@ class Huffman_Tree:
                 dict[i] += 1
             else:
                 dict[i] = 1
+
         # Store dict's information as a tuple list:
         tuplelist = []
         for key in dict.keys():
@@ -93,6 +94,14 @@ class Huffman_Tree:
         for i in tuplelist:
             new_node = ListNode(i)
             ord_list.add_node(new_node)
+        # Additional clause in case list has only one char
+        if ord_list.size == 1:
+            # here we build manually a list with a root and a node
+            manual_root = Huffman_Node()
+            manual_root.left = ord_list.pop()
+            manual_root.freq = manual_root.left.freq
+            manual_root.data = (new_node.freq, "***")
+            return(manual_root)
         # Use the List to generate a tree and return it's root
         while ord_list.size > 1:
             new_node = Huffman_Node()
@@ -107,6 +116,8 @@ class Huffman_Tree:
 
     def _codify_tree(self, node, code):
         current_node = node
+        if not current_node:
+            return
         if code:
             current_node.code = code + current_node.code
         if hasattr(current_node, 'left'):
@@ -126,6 +137,8 @@ def Huffman_Encode(string, huff_tree):
     return(output)
 
 def Huffman_Decode(code, tree):
+    if len(code) == 0:
+        return("Warning, can't decode empty string")
     output = ""
     code_length = len(code) - 1
     index = 0
@@ -163,10 +176,10 @@ decoded_data = Huffman_Decode(encoded_data, tree)
 
 print("The size of the decoded data is: {}".format(sys.getsizeof(decoded_data)))
 print("The content of the encoded data is: {}\n".format(decoded_data))
-#  --------------------------------TEST CASE 2-----------------------
-print("TEST CASE 2: LONGER SENTENCE")
+#  --------------------------------TEST CASE 2-----------------------"""
+print("TEST CASE 2: Someone wants to codify screaming")
 
-a_great_sentence = "A much much longer sentence, this will go on and on and on and on"
+a_great_sentence = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 
 print("The size of the data is: {}".format(sys.getsizeof(a_great_sentence)))
 print("The content of the data is: {}\n".format(a_great_sentence))
@@ -174,7 +187,8 @@ print("The content of the data is: {}\n".format(a_great_sentence))
 tree = Huffman_Tree(a_great_sentence)
 encoded_data = Huffman_Encode(a_great_sentence, tree)
 
-print("The size of the encoded data is: {}".format(sys.getsizeof(int(encoded_data, base=2))))
+print("The size of the encoded data is: {}".format(encoded_data))#(sys.getsizeof(int(encoded_data, base=2))))
+print("Size")
 print("The content of the encoded data is: {}\n".format(encoded_data))
 
 decoded_data = Huffman_Decode(encoded_data, tree)
@@ -182,9 +196,9 @@ decoded_data = Huffman_Decode(encoded_data, tree)
 print("The size of the decoded data is: {}".format(sys.getsizeof(decoded_data)))
 print("The content of the encoded data is: {}\n".format(decoded_data))
 #  --------------------------------TEST CASE 3-----------------------
-print("TEST CASE 3: SHORT STRING (because what is the point of codifiyin an empty string?)")
+print("TEST CASE 3: EMPTY STRING")
 
-a_great_sentence = "Ab"
+a_great_sentence = ""
 
 print("The size of the data is: {}".format(sys.getsizeof(a_great_sentence)))
 print("The content of the data is: {}\n".format(a_great_sentence))
@@ -192,8 +206,6 @@ print("The content of the data is: {}\n".format(a_great_sentence))
 tree = Huffman_Tree(a_great_sentence)
 encoded_data = Huffman_Encode(a_great_sentence, tree)
 
-print("The size of the encoded data is: {}".format(sys.getsizeof(int(encoded_data, base=2))))
-print("The content of the encoded data is: {}\n".format(encoded_data))
 
 decoded_data = Huffman_Decode(encoded_data, tree)
 

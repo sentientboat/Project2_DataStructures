@@ -22,9 +22,16 @@ for subsequent node classes.
 In any case, this whole code should be O(n) (although this n would have a pretty big
 multiplier if we did not ignore constant values when calculating O)
 Space complexity would be a function of the length of the string and how many different
-characters are present
+characters are present:
+  For example, a string with only one kind of character and length 1 would be O(1),
+  The same character repeated 1000 times would be size O(1000) since I have to
+  store the longer string. So let's say space complexity in this dimension (len(str)) is O(n).
+  On the other hand, a long string with many different characters would mean storing
+  an extra node in the tree for each char. So the other dimension (str variance) is O(n) .
+  Since we can assume the longer the string, the more different chars we have,
+  the result would be a space complexity of O(n^2)
+  Worst case scenario we get a long string that uses all possible characters.
 
 I noticed we are measuring the size of our encoded string after casting it to an int.
 I guess it would be interesting to test passing a bytes object (as seen in many
   applications online) but I simply do not have time to figure it our, I hope this is sufficient.
-  

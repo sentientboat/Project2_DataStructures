@@ -20,7 +20,7 @@ def _delve(path, desired_termination, container):
     else:
         print("ERROR: path can not be found")
         return(None)
-
+#TEST CASE 1
 entry_point = r"V:\Academics\Data Structures\testdir"
 
 c = delver(entry_point, ".c")
@@ -28,7 +28,17 @@ print("RESULTS:")
 for i in c:
     print(i[0] + "  :  " + i[1])
 
+#TEST CASE 2
 entry_point = r"V:\Academics\Data Structures\nonexistent"
+
+print("TESTING FOR NONEXISTENT PATH:")
+c = delver(entry_point, ".c")
+print("RESULTS: ")
+for i in c:
+    print(i[0] + "  :  " + i[1])
+
+#TEST CASE 3
+entry_point = r""
 
 print("TESTING FOR NONEXISTENT PATH:")
 c = delver(entry_point, ".c")
